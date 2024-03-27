@@ -3,11 +3,13 @@ import { useColorScheme } from "react-native";
 
 const useColors = () => {
   const colorScheme = useColorScheme();
-  const textColor = Colors[colorScheme ?? "light"].text.toString();
-  const borderColor = Colors[colorScheme ?? "light"].borderColor.toString();
+  const textColor = Colors[colorScheme ?? "light"].text;
+  const borderColor = Colors[colorScheme ?? "light"].borderColor;
+  const backgroundColor = Colors[colorScheme ?? "light"].borderColor;
   return {
     textColor,
     borderColor,
+    backgroundColor,
   };
 };
 
