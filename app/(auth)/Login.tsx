@@ -4,6 +4,7 @@ import tw from "@/lib/tailwind";
 import React, { FunctionComponent } from "react";
 import { View } from "react-native";
 import useColors from "@/hooks/useColors";
+import CustomBtn from "@/components/CustomBtn";
 
 const Login: FunctionComponent = () => {
   const { textColor } = useColors();
@@ -16,6 +17,7 @@ const Login: FunctionComponent = () => {
           placeholderTextColor={"black"}
           secureTextEntry
         />
+        <CustomBtn title="Submit" style={tw`mt-5`} titleColor={"white"} />
       </View>
     </ScreenContainer>
   );
