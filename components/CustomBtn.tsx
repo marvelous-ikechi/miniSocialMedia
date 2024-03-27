@@ -1,5 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import tw from "@/lib/tailwind";
@@ -8,12 +13,14 @@ import useColors from "@/hooks/useColors";
 interface Props extends TouchableOpacityProps {
   title: string;
   titleColor: string;
+  isLoading?: boolean;
 }
 
 const CustomBtn: FunctionComponent<Props> = ({
   titleColor,
   title,
   style,
+  isLoading,
   ...props
 }) => {
   const { textColor } = useColors();
@@ -30,7 +37,11 @@ const CustomBtn: FunctionComponent<Props> = ({
       ]}
       {...props}
     >
-      <Text style={textColorStyle}>{title}</Text>
+      {!isLoading ? (
+        <Text style={textColorStyle}>{title}</Text>
+      ) : (
+        <ActivityIndicator />
+      )}
     </TouchableOpacity>
   );
 };
