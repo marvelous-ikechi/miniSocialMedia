@@ -1,15 +1,21 @@
+import CustomTextInput from "@/components/CustomTextInput";
 import ScreenContainer from "@/components/ScreenContainer";
-import { useColorScheme } from "@/components/useColorScheme";
 import tw from "@/lib/tailwind";
 import React, { FunctionComponent } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { View } from "react-native";
+import useColors from "@/hooks/useColors";
 
 const Login: FunctionComponent = () => {
-  const colorScheme = useColorScheme();
+  const { textColor } = useColors();
   return (
     <ScreenContainer>
-      <View>
-        <Text style={tw``}>Hello there</Text>
+      <View style={tw`flex-1 px-3 items-center  justify-center`}>
+        <CustomTextInput placeholder="Email" placeholderTextColor={"black"} />
+        <CustomTextInput
+          placeholder="Password"
+          placeholderTextColor={"black"}
+          secureTextEntry
+        />
       </View>
     </ScreenContainer>
   );
