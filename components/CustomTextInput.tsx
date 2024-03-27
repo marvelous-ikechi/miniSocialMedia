@@ -5,8 +5,11 @@ import { TextInput, TextInputProps, View } from "react-native";
 
 interface Props extends TextInputProps {}
 
-const CustomTextInput: FunctionComponent<Props> = ({ ...props }) => {
-  const { borderColor } = useColors();
+const CustomTextInput: FunctionComponent<Props> = ({
+  placeholderTextColor,
+  ...props
+}) => {
+  const { borderColor, textColor } = useColors();
   return (
     <View
       style={[
@@ -15,6 +18,7 @@ const CustomTextInput: FunctionComponent<Props> = ({ ...props }) => {
       ]}
     >
       <TextInput
+        placeholderTextColor={textColor}
         style={[
           props.style,
           {
