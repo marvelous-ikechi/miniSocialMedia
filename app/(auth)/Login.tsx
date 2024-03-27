@@ -12,12 +12,8 @@ const Login: FunctionComponent = () => {
     <ScreenContainer>
       <View style={tw`flex-1 px-3 `}>
         <View style={tw`flex-1 items-center  justify-center w-full`}>
-          <CustomTextInput placeholder="Email" placeholderTextColor={"black"} />
-          <CustomTextInput
-            placeholder="Password"
-            placeholderTextColor={"black"}
-            secureTextEntry
-          />
+          <CustomTextInput placeholder="Email" />
+          <CustomTextInput placeholder="Password" secureTextEntry />
           <CustomBtn title="Submit" style={tw`mt-5`} titleColor={"white"} />
           <Pressable
             onPress={() => router.navigate("/(auth)/Signup")}
