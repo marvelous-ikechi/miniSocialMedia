@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from "react";
-import { SafeAreaView, View } from "react-native";
-import { useColorScheme } from "./useColorScheme";
+import { SafeAreaView } from "react-native";
 import tw from "@/lib/tailwind";
-import Colors from "@/constants/Colors";
+import useColors from "@/hooks/useColors";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const ScreenContainer: FunctionComponent<Props> = ({ children }) => {
-  const colorScheme = useColorScheme();
-  const backgroundColor = Colors[colorScheme ?? "light"].background.toString();
+  const { backgroundColor } = useColors();
   return (
-    <SafeAreaView style={tw`bg-${backgroundColor}`}>{children}</SafeAreaView>
+    <SafeAreaView style={tw`flex-1 bg-${backgroundColor}`}>
+      {children}
+    </SafeAreaView>
   );
 };
 
