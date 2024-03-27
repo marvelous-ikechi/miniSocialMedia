@@ -12,6 +12,9 @@ const Signup: FunctionComponent = () => {
     <ScreenContainer>
       <View style={tw`flex-1 px-3 `}>
         <View style={tw`flex-1 items-center  justify-center w-full`}>
+          <CustomText style={tw`text-lg w-full font-bold text-left`}>
+            Register
+          </CustomText>
           <CustomTextInput placeholder="First Name" />
           <CustomTextInput placeholder="Last Name" />
           <CustomTextInput placeholder="Password" secureTextEntry />
