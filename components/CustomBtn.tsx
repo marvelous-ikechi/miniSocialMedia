@@ -3,6 +3,7 @@ import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import tw from "@/lib/tailwind";
+import useColors from "@/hooks/useColors";
 
 interface Props extends TouchableOpacityProps {
   title: string;
@@ -12,13 +13,24 @@ interface Props extends TouchableOpacityProps {
 const CustomBtn: FunctionComponent<Props> = ({
   titleColor,
   title,
+  style,
   ...props
 }) => {
-  const colorScheme = useColorScheme();
-  titleColor = Colors[colorScheme ?? "light"].text.toString();
+  const { textColor } = useColors();
+  titleColor = titleColor ?? textColor;
+
+  // Determine the text color class based on titleColor.
+  const textColorStyle = tw`text-${titleColor} text-base`;
+
   return (
-    <TouchableOpacity {...props}>
-      <Text style={tw`text-titleColor`}>{title}</Text>
+    <TouchableOpacity
+      style={[
+        tw`items-center w-full h-12 justify-center rounded bg-purple`,
+        style,
+      ]}
+      {...props}
+    >
+      <Text style={textColorStyle}>{title}</Text>
     </TouchableOpacity>
   );
 };
