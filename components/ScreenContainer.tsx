@@ -10,7 +10,7 @@ interface Props {
 const ScreenContainer: FunctionComponent<Props> = ({ children }) => {
   const { backgroundColor } = useColors();
   return (
-    <SafeAreaView style={tw`flex-1 bg-${backgroundColor}`}>
+    <SafeAreaView style={tw`flex-1 bg-[${backgroundColor}]`}>
       {children}
     </SafeAreaView>
   );
