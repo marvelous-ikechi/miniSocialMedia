@@ -10,6 +10,9 @@ const screens: Screen[] = [
   {
     name: "Login",
   },
+  {
+    name: "Signup",
+  },
 ];
 
 const AuthLayout: FunctionComponent = () => {
