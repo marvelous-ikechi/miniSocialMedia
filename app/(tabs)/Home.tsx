@@ -1,14 +1,12 @@
 import {
-  Pressable,
+  FlatList,
+  ListRenderItem,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
 } from "react-native";
 import tw from "@/lib/tailwind";
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-import Colors from "@/constants/Colors";
-import firestore from "firebase/firestore";
+import { View } from "@/components/Themed";
+import { DocumentData } from "firebase/firestore";
 import useColors from "@/hooks/useColors";
 import ScreenContainer from "@/components/ScreenContainer";
 import CustomText from "@/components/CustomText";
@@ -16,14 +14,24 @@ import useMessaging from "@/hooks/useMessaging";
 import { useState } from "react";
 import CustomBtn from "@/components/CustomBtn";
 import useAuth from "@/hooks/useAuth";
+import Message from "@/components/Message";
 
 export default function TabOneScreen() {
-  const colorScheme = useColorScheme();
   const { sendMessage, allMessages } = useMessaging();
   const { logout } = useAuth();
 
-  const { backgroundColor, borderColor } = useColors();
+  const { borderColor } = useColors();
   const [message, setMessage] = useState<string>("");
+
+  const renderMessages: ListRenderItem<DocumentData> = ({ item }) => {
+    return (
+      <Message
+        message={item.message}
+        sender={item?.sender}
+        time={item?.time?.seconds}
+      />
+    );
+  };
   return (
     <ScreenContainer>
       <View style={tw`flex-1 mx-3 `}>
@@ -33,6 +41,9 @@ export default function TabOneScreen() {
           style={tw`w-20 bg-pink-500 self-end mt-4`}
           onPress={logout}
         />
+        <View>
+          <FlatList data={allMessages} renderItem={renderMessages} />
+        </View>
         <View style={tw`flex-1  justify-end `}>
           <View style={tw` flex-row items-center mb-8 justify-between`}>
             <TextInput
