@@ -8,14 +8,14 @@ import {
 } from "firebase/auth";
 import { useRouter } from "expo-router";
 import { appAuth } from "@/firebaseConfig";
-interface SignupParams {
+export interface SignupParams {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 
-interface LoginParams {
+export interface LoginParams {
   email: string;
   password: string;
 }
