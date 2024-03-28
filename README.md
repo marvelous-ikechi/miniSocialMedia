@@ -4,7 +4,7 @@ This project was booted with [Expo](https://expo.io/). It is a simple React Nati
 
 - Authentication: SignIn and Login (using email and password).
 
-- Messaging: Users can post a message to the group, automatically see the update without refreshing, and view messages from other users. The messaging feature, however, requires users authentication.
+- Messaging: Users can post a message, automatically see the update without refreshing (in descending order), and view messages from other users. The messaging feature, however, requires users authentication.
 
 - Logout: Users can logout from the application.
 
