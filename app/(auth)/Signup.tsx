@@ -18,6 +18,7 @@ const Signup: FunctionComponent = () => {
     control,
     formState: { errors, isValid },
   } = useForm<SignupParams>({
+    mode: "onChange",
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -39,7 +40,10 @@ const Signup: FunctionComponent = () => {
             control={control}
             rules={{
               required: true,
-              minLength: 3,
+              minLength: {
+                value: 3,
+                message: "First name must be at least 3 characters",
+              },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomTextInput
@@ -60,7 +64,10 @@ const Signup: FunctionComponent = () => {
             control={control}
             rules={{
               required: true,
-              minLength: 3,
+              minLength: {
+                value: 3,
+                message: "Last name must be at least 3 characters",
+              },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <CustomTextInput

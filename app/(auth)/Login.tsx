@@ -17,6 +17,7 @@ const Login: FunctionComponent = () => {
     control,
     formState: { errors, isValid },
   } = useForm<LoginParams>({
+    mode: "all",
     defaultValues: {
       email: "",
       password: "",
