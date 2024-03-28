@@ -34,7 +34,7 @@ export default function Root() {
             style={tw`bg-purple p-3 rounded-md`}
             onPress={() => {
               setIsLoading(true);
-              router.navigate("/RootLayout"); // Navigate to RootLayout
+              router.navigate("/(auth)/Login"); // Navigate to Login screen
             }}
           >
             <CustomText style={tw`font-semibold text-lg text-white`}>
