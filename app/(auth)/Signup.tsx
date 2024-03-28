@@ -63,16 +63,17 @@ const Signup: FunctionComponent = () => {
             value={lastName}
             onChangeText={setLastName}
           />
+
+          <CustomTextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+          />
           <CustomTextInput
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-          />
-          <CustomTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
           />
           <CustomBtn
             isLoading={loading}
