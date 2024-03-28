@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 import { useRouter } from "expo-router";
 import { appAuth } from "@/firebaseConfig";
@@ -72,11 +73,26 @@ const useAuth = () => {
       .finally(() => setLoading(false));
   };
 
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await signOut(auth);
+      // Redirect user to login page after logout
+      navigate("/(auth)/Login");
+    } catch (error) {
+      setError("Error signing out");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     signup,
     login,
     loading,
     error,
+    logout,
   };
 };
 
