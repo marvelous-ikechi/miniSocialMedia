@@ -41,6 +41,8 @@ const Signup: FunctionComponent = () => {
       : signup({
           email,
           password,
+          firstName,
+          lastName,
         });
   };
 
