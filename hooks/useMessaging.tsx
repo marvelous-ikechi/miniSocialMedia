@@ -5,6 +5,8 @@ import {
   getDocs,
   DocumentData,
   onSnapshot,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import useUser from "./useUser";
@@ -17,18 +19,20 @@ const useMessaging = () => {
   }, []);
 
   useEffect(() => {
-    // Listen for real-time updates to the messages collection
-    const unsubscribe = onSnapshot(
+    // Create a query that orders messages by time in descending order
+    const messagesQuery = query(
       collection(db, "messages"),
-      (querySnapshot) => {
-        const messagesArray: DocumentData[] = [];
-        querySnapshot.forEach((doc) => {
-          const message = doc.data();
-          messagesArray.push(message);
-        });
-        setAllMessages(messagesArray);
-      }
+      orderBy("time", "desc")
     );
+    // Listen for real-time updates to the ordered messages
+    const unsubscribe = onSnapshot(messagesQuery, (querySnapshot) => {
+      const messagesArray: DocumentData[] = [];
+      querySnapshot.forEach((doc) => {
+        const message = doc.data();
+        messagesArray.push(message);
+      });
+      setAllMessages(messagesArray);
+    });
 
     // Unsubscribe from the listener when the component unmounts
     return () => unsubscribe();
