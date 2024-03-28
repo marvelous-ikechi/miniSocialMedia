@@ -37,6 +37,7 @@
       "expo-router",
       "@react-native-firebase/app",
       "@react-native-firebase/crashlytics",
+      "@react-native-firebase/auth",
       [
         "expo-build-properties",
         {
