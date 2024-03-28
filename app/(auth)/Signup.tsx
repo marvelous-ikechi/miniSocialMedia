@@ -6,8 +6,10 @@ import { Pressable, View } from "react-native";
 import CustomBtn from "@/components/CustomBtn";
 import CustomText from "@/components/CustomText";
 import { router } from "expo-router";
+import useAuth from "@/hooks/useAuth";
 
 const Signup: FunctionComponent = () => {
+  const { loading, signup, error } = useAuth();
   return (
     <ScreenContainer>
       <View style={tw`flex-1 px-3 `}>
@@ -19,7 +21,18 @@ const Signup: FunctionComponent = () => {
           <CustomTextInput placeholder="Last Name" />
           <CustomTextInput placeholder="Password" secureTextEntry />
           <CustomTextInput placeholder="Email" />
-          <CustomBtn title="Submit" style={tw`mt-5`} titleColor={"white"} />
+          <CustomBtn
+            onPress={() =>
+              signup({
+                email: "marvelike7@gmail.com",
+                password: "hellothere",
+              })
+            }
+            isLoading={loading}
+            title="Submit"
+            style={tw`mt-5`}
+            titleColor={"white"}
+          />
           <Pressable
             onPress={() => router.navigate("/(auth)/Login")}
             style={tw`w-full mt-3 items-end justify-end`}

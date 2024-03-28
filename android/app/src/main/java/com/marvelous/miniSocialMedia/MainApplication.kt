@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.res.Configuration
 import androidx.annotation.NonNull
 
+
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
@@ -19,6 +20,8 @@ import com.facebook.soloader.SoLoader
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
 
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost = ReactNativeHostWrapper(
@@ -27,6 +30,7 @@ class MainApplication : Application(), ReactApplication {
           override fun getPackages(): List<ReactPackage> {
             // Packages that cannot be autolinked yet can be added manually here, for example:
             // packages.add(new MyReactNativePackage());
+            packages.add(new ReactNativeFirebaseAppPackage());
             return PackageList(this).packages
           }
 
