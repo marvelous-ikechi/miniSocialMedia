@@ -32,6 +32,13 @@ export default function TabOneScreen() {
       />
     );
   };
+
+  const handleSendMessage = () => {
+    sendMessage(message);
+    // set input field to be empty after sending message
+    setMessage("");
+  };
+
   return (
     <ScreenContainer>
       <View style={tw`flex-1 mx-3 `}>
@@ -41,8 +48,12 @@ export default function TabOneScreen() {
           style={tw`w-20 bg-pink-500 self-end mt-4`}
           onPress={logout}
         />
-        <View style={tw`mb-4`}>
-          <FlatList data={allMessages} renderItem={renderMessages} />
+        <View style={tw`mb-4 h-[80%]`}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={allMessages}
+            renderItem={renderMessages}
+          />
         </View>
         <View style={tw`flex-1 mb-4 mt-3 justify-end `}>
           <View style={tw` flex-row items-center  justify-between`}>
@@ -53,7 +64,7 @@ export default function TabOneScreen() {
               onChangeText={setMessage}
             />
             <TouchableOpacity
-              onPress={() => sendMessage(message)}
+              onPress={handleSendMessage}
               style={tw`bg-black h-12 items-center justify-center rounded w-1/5`}
             >
               <CustomText style={tw`text-white text-base`}>send</CustomText>
