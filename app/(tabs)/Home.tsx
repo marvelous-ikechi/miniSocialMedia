@@ -12,13 +12,10 @@ import ScreenContainer from "@/components/ScreenContainer";
 import CustomText from "@/components/CustomText";
 import useMessaging from "@/hooks/useMessaging";
 import { useState } from "react";
-import CustomBtn from "@/components/CustomBtn";
-import useAuth from "@/hooks/useAuth";
 import Message from "@/components/Message";
 
 export default function TabOneScreen() {
   const { sendMessage, allMessages } = useMessaging();
-  const { logout } = useAuth();
 
   const { borderColor } = useColors();
   const [message, setMessage] = useState<string>("");
@@ -42,12 +39,6 @@ export default function TabOneScreen() {
   return (
     <ScreenContainer>
       <View style={tw`flex-1 mx-3 mt-4`}>
-        <CustomBtn
-          title="Logout"
-          titleColor="white"
-          style={tw`w-20 bg-pink-500 self-end mt-4`}
-          onPress={logout}
-        />
         {allMessages.length > 0 ? (
           <View style={tw`mb-4 h-[80%]`}>
             <FlatList
@@ -81,7 +72,6 @@ export default function TabOneScreen() {
           </View>
         </View>
       </View>
-      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
     </ScreenContainer>
   );
 }
