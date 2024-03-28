@@ -14,7 +14,7 @@ const CustomText: FunctionComponent<Props> = ({
 }) => {
   const { textColor } = useColors();
   return (
-    <Text {...props} style={[tw`text-${textColor} text-sm`, style]}>
+    <Text {...props} style={[tw`text-[${textColor}] text-sm`, style]}>
       {children}
     </Text>
   );
