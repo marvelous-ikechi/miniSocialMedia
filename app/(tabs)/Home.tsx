@@ -41,7 +41,7 @@ export default function TabOneScreen() {
 
   return (
     <ScreenContainer>
-      <View style={tw`flex-1 mx-3 `}>
+      <View style={tw`flex-1 mx-3 mt-4`}>
         <CustomBtn
           title="Logout"
           titleColor="white"
