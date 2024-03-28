@@ -7,12 +7,17 @@ import {
   signOut,
 } from "firebase/auth";
 import { useRouter } from "expo-router";
-import { appAuth } from "@/firebaseConfig";
-interface SignupParams {
+import { Alert } from "react-native";
+export interface SignupParams {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
+}
+
+export interface LoginParams {
+  email: string;
+  password: string;
 }
 
 const useAuth = () => {
@@ -45,21 +50,22 @@ const useAuth = () => {
       navigate("/(tabs)/Home");
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
-        console.log("That email address is already in use!");
+        Alert.alert("That email address is already in use!");
         setError("That email address is already in use!");
       } else if (error.code === "auth/invalid-email") {
-        console.log("That email address is invalid!");
+        Alert.alert("That email address is invalid!");
         setError("That email address is invalid!");
       } else {
         console.error(error);
         setError("An unexpected error occurred.");
+        Alert.alert("An unexpected error occurred.");
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const login = (params: SignupParams) => {
+  const login = (params: LoginParams) => {
     setLoading(true);
     signInWithEmailAndPassword(auth, params.email, params.password)
       .then(() => {
@@ -68,7 +74,12 @@ const useAuth = () => {
       })
       .catch((error) => {
         setError("Login error experienced");
-        console.log(error);
+        if (error.code === "auth/invalid-credential") {
+          Alert.alert("Invalid email or password. Try again");
+          setError("Invalid email or password. Try again");
+        } else {
+          Alert.alert("An error occured");
+        }
       })
       .finally(() => setLoading(false));
   };

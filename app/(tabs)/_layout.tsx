@@ -34,9 +34,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Feed"
+        name="Profile"
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="feed" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="pencil-square" color={color} />
+          ),
         }}
       />
     </Tabs>

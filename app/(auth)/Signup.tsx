@@ -6,45 +6,28 @@ import { Pressable, View } from "react-native";
 import CustomBtn from "@/components/CustomBtn";
 import CustomText from "@/components/CustomText";
 import "@/firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
-import useAuth from "@/hooks/useAuth";
+import useAuth, { SignupParams } from "@/hooks/useAuth";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
 const Signup: FunctionComponent = () => {
-  const auth = getAuth();
   const { loading, error, signup } = useAuth();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const handleError = useCallback(() => {
-    if (
-      email.length === 0 ||
-      password.length < 5 ||
-      firstName.length === 0 ||
-      lastName.length === 0
-    ) {
-      setIsDisabled(true);
-      return true;
-    } else {
-      setIsDisabled(false);
-      return false;
-    }
-  }, [email, password, firstName, lastName]);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isValid },
+  } = useForm<SignupParams>({
+    mode: "onChange",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleSubmit = () => {
-    const hasError = handleError();
-    hasError
-      ? null
-      : signup({
-          email,
-          password,
-          firstName,
-          lastName,
-        });
-  };
+  const onSubmit: SubmitHandler<SignupParams> = (data) => signup(data);
 
   return (
     <ScreenContainer>
@@ -53,35 +36,108 @@ const Signup: FunctionComponent = () => {
           <CustomText style={tw`text-lg w-full font-bold text-left`}>
             Register
           </CustomText>
-          <CustomTextInput
-            placeholder="First Name"
-            value={firstName}
-            onChangeText={setFirstName}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 3,
+                message: "First name must be at least 3 characters",
+              },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onChangeText={onChange}
+                placeholder="First Name"
+                value={value}
+                onBlur={onBlur}
+              />
+            )}
+            name="firstName"
           />
-          <CustomTextInput
-            placeholder="Last Name"
-            value={lastName}
-            onChangeText={setLastName}
+          {errors?.firstName && (
+            <CustomText style={tw`text-red-600 -mt-2 text-left w-full`}>
+              {errors.firstName.message}
+            </CustomText>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 3,
+                message: "Last name must be at least 3 characters",
+              },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onChangeText={onChange}
+                placeholder="Last Name"
+                value={value}
+                onBlur={onBlur}
+              />
+            )}
+            name="lastName"
           />
+          {errors?.lastName && (
+            <CustomText style={tw`text-red-600 -mt-2 text-left w-full`}>
+              {errors.lastName.message}
+            </CustomText>
+          )}
 
-          <CustomTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "Invalid email address",
+              },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onChangeText={onChange}
+                value={value}
+                placeholder="Email"
+                onBlur={onBlur}
+              />
+            )}
+            name="email"
           />
-          <CustomTextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
+          {errors?.email && (
+            <CustomText style={tw`text-red-600 -mt-2 text-left w-full`}>
+              {errors.email.message}
+            </CustomText>
+          )}
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+              minLength: 6,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <CustomTextInput
+                onChangeText={onChange}
+                placeholder="Password"
+                secureTextEntry
+                value={value}
+                onBlur={onBlur}
+              />
+            )}
+            name="password"
           />
+          {errors?.password && (
+            <CustomText style={tw`text-red-600 -mt-2 text-left w-full`}>
+              {errors.password.message}
+            </CustomText>
+          )}
           <CustomBtn
-            isLoading={loading}
-            onPress={() => handleSubmit()}
+            onPress={handleSubmit(onSubmit)}
             title="Submit"
             style={tw`mt-5`}
             titleColor={"white"}
-            disabled={isDisabled}
+            isLoading={loading}
+            disabled={!isValid}
           />
           <Pressable
             onPress={() => router.navigate("/(auth)/Login")}
