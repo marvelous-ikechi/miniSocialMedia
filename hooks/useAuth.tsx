@@ -36,7 +36,7 @@ const useAuth = () => {
       );
       const user = userCredential.user;
       await updateProfile(user, {
-        displayName: `${firstName} ${lastName}`,
+        displayName: `${firstName}_${lastName}`,
       });
       console.log(
         "User account created & signed in with display name:",
