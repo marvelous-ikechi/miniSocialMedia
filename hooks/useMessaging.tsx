@@ -36,7 +36,7 @@ const useMessaging = () => {
   };
   return {
     sendMessage,
-    fetchAllMessages,
+    allMessages,
   };
 };
 
