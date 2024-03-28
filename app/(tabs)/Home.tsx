@@ -14,16 +14,25 @@ import ScreenContainer from "@/components/ScreenContainer";
 import CustomText from "@/components/CustomText";
 import useMessaging from "@/hooks/useMessaging";
 import { useState } from "react";
+import CustomBtn from "@/components/CustomBtn";
+import useAuth from "@/hooks/useAuth";
 
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
-  const { sendMessage } = useMessaging();
+  const { sendMessage, allMessages } = useMessaging();
+  const { logout } = useAuth();
 
   const { backgroundColor, borderColor } = useColors();
   const [message, setMessage] = useState<string>("");
   return (
     <ScreenContainer>
       <View style={tw`flex-1 mx-3 `}>
+        <CustomBtn
+          title="Logout"
+          titleColor="white"
+          style={tw`w-20 bg-pink-500 self-end mt-4`}
+          onPress={logout}
+        />
         <View style={tw`flex-1  justify-end `}>
           <View style={tw` flex-row items-center mb-8 justify-between`}>
             <TextInput
