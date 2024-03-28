@@ -12,13 +12,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 const Login: FunctionComponent = () => {
   const { loading, login, error } = useAuth();
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
   const {
-    register,
     handleSubmit,
-    watch,
     control,
     formState: { errors, isValid },
   } = useForm<LoginParams>({
