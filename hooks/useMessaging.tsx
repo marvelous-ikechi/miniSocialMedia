@@ -1,5 +1,11 @@
 import { db } from "@/firebaseConfig";
-import { collection, addDoc, getDocs, DocumentData } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  DocumentData,
+  onSnapshot,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import useUser from "./useUser";
 
@@ -8,6 +14,24 @@ const useMessaging = () => {
   const { user } = useUser();
   useEffect(() => {
     fetchAllMessages();
+  }, []);
+
+  useEffect(() => {
+    // Listen for real-time updates to the messages collection
+    const unsubscribe = onSnapshot(
+      collection(db, "messages"),
+      (querySnapshot) => {
+        const messagesArray: DocumentData[] = [];
+        querySnapshot.forEach((doc) => {
+          const message = doc.data();
+          messagesArray.push(message);
+        });
+        setAllMessages(messagesArray);
+      }
+    );
+
+    // Unsubscribe from the listener when the component unmounts
+    return () => unsubscribe();
   }, []);
 
   const sendMessage = async (message: string) => {
