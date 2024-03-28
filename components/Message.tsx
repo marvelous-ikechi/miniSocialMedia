@@ -12,9 +12,11 @@ const Message: FunctionComponent<DocumentData> = ({
 }) => {
   return (
     <View style={tw`bg-purple mb-3 w-40 rounded-lg py-2 px-2`}>
-      <CustomText style={tw`text-white text-[15px]`}>{message}</CustomText>
+      <CustomText style={tw`text-white text-[13px]`}>{message}</CustomText>
       <View style={tw`flex-row justify-between`}>
-        <CustomText style={tw`text-black text-xs `}>{sender}</CustomText>
+        {sender && (
+          <CustomText style={tw`text-black text-xs `}>{sender}</CustomText>
+        )}
         {time && (
           <CustomText style={tw`text-black text-xs `}>
             {formatDateAndTime(Number(time))}
