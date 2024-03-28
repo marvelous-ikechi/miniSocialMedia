@@ -48,13 +48,22 @@ export default function TabOneScreen() {
           style={tw`w-20 bg-pink-500 self-end mt-4`}
           onPress={logout}
         />
-        <View style={tw`mb-4 h-[80%]`}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={allMessages}
-            renderItem={renderMessages}
-          />
-        </View>
+        {allMessages.length > 0 ? (
+          <View style={tw`mb-4 h-[80%]`}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={allMessages}
+              renderItem={renderMessages}
+            />
+          </View>
+        ) : (
+          <View style={tw`flex-1 items-center justify-center`}>
+            <CustomText style={tw`text-center text-lg font-bold`}>
+              No Messages yet.{" "}
+            </CustomText>
+          </View>
+        )}
+
         <View style={tw`flex-1 mb-4 mt-3 justify-end `}>
           <View style={tw` flex-row items-center  justify-between`}>
             <TextInput
