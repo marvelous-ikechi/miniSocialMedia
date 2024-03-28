@@ -36,7 +36,6 @@ const Signup: FunctionComponent = () => {
 
   const handleSubmit = () => {
     const hasError = handleError();
-    console.log("here", error);
     hasError
       ? null
       : signup({
