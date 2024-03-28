@@ -1,10 +1,10 @@
 import { db } from "@/firebaseConfig";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, DocumentData } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import useUser from "./useUser";
 
 const useMessaging = () => {
-  const [allMessages, setAllMessages] = useState<string>("");
+  const [allMessages, setAllMessages] = useState<DocumentData[]>([]);
   const { user } = useUser();
   useEffect(() => {
     fetchAllMessages();
@@ -16,6 +16,7 @@ const useMessaging = () => {
         message: message,
         time: new Date(),
         sender: user?.displayName,
+        senderUid: user?.uid,
       });
       console.log(message);
       console.log("Document written with ID: ", docRef.id);
@@ -27,12 +28,14 @@ const useMessaging = () => {
   const fetchAllMessages = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "messages"));
+      const messagesArray: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
-        const mesages = `${JSON.stringify(doc.data(), null, 2)}`;
-        setAllMessages(mesages);
+        const message = doc.data(); // Get the message data
+        messagesArray.push(message); // Add the message to the array
       });
+      setAllMessages(messagesArray); // Set the state with the array of messages
     } catch (error) {
-      console.log("an error occured while fetching data");
+      console.log("An error occurred while fetching data:", error);
     }
   };
   return {
