@@ -15,6 +15,11 @@ interface SignupParams {
   lastName: string;
 }
 
+interface LoginParams {
+  email: string;
+  password: string;
+}
+
 const useAuth = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,7 +64,7 @@ const useAuth = () => {
     }
   };
 
-  const login = (params: SignupParams) => {
+  const login = (params: LoginParams) => {
     setLoading(true);
     signInWithEmailAndPassword(auth, params.email, params.password)
       .then(() => {
