@@ -8,7 +8,7 @@ export default function TabOneScreen() {
   const colorScheme = useColorScheme();
   const backgroundColor = Colors[colorScheme ?? "light"].background.toString();
   return (
-    <View style={tw`bg-${backgroundColor} flex-1`}>
+    <View style={tw`bg-[${backgroundColor}] flex-1`}>
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
     </View>
   );
